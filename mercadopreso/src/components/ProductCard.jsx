@@ -1,24 +1,22 @@
 
 import propTypes from 'prop-types'
 import "./ProductCard.css"
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
+
 
 function ProductCard({ data }) {
-
+    const navigate = useNavigate()
     const {title , image , price  } = data
+  
     
 
-    function clicou(){
-    
-        return(
-            <Link to={{ pathname: `/${data.id}`, state: { id : data.id } }}/>
-        )
-        
-    }
+  
 
 
     return(
-        <section className='product-card' onClick={clicou}>
+       
+        <section className='product-card'>
             <img 
             src={image} alt="product" 
             className='card__image' />
@@ -30,8 +28,10 @@ function ProductCard({ data }) {
             </div>
 
             <button className='button__add-card'>carrinho</button>
+            <button className='button__detalhes' onClick={()=> navigate(`./${data.id}` , {state : data.id})}>detalhes</button>
 
-        </section>
+         </section>
+       
     )
 }
 
