@@ -1,42 +1,30 @@
-
 import propTypes from 'prop-types'
 import "./ProductCard.css"
 import { useNavigate } from 'react-router-dom'
 
-
-
-function ProductCard({ data }) {
+function ProductCard({ data, handleAddToCart }) {
     const navigate = useNavigate()
-    const {title , image , price  } = data
-  
-    
+    const { title, image, price } = data
 
-  
-
-
-    return(
-       
+    return (
         <section className='product-card'>
-            <img 
-            src={image} alt="product" 
-            className='card__image' />
+            <div className="card" onClick={() => navigate(`./${data.id}`, { state: data.id })}>
+            <img
+                src={image} alt="product"
+                className='card__image' />
 
-
-            <div className="card">
                 <h2 className="card__price">R${price}</h2>
                 <h2 className="card__title">{title}</h2>
             </div>
 
-            <button className='button__add-card'>carrinho</button>
-            <button className='button__detalhes' onClick={()=> navigate(`./${data.id}` , {state : data.id})}>detalhes</button>
-
-         </section>
-       
+            <button className='button__add-card' onClick={() => handleAddToCart(data)}>carrinho</button>
+        </section>
     )
 }
 
-export default ProductCard
-
 ProductCard.propTypes = {
-    data: propTypes.shape({})
-}.isRequired
+    data: propTypes.shape({}).isRequired,
+    handleAddToCart: propTypes.func.isRequired
+}
+
+export default ProductCard
