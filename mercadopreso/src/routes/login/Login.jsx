@@ -1,45 +1,79 @@
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState } from "react";
+import validator from "validator";
+import { useNavigate } from "react-router-dom";
 
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [isValid, setIsValid] = useState(false);
+  const [isAllValid, setIsAllValid] = useState(false);
 
-function Login () {
-    const [email , setemail] = useState('')
-    const [pass , setpass] = useState('')
+  const navigate = useNavigate();
 
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+    setIsValid(validator.isEmail(event.target.value));
+    check()
+  };
 
-    const navigate = useNavigate()
+  const handlePassChange = (event) => {
+    setPass(event.target.value);
+    check()
+  };
 
-
-  
-    
-    const handlechange = (event) =>{
-        const newpass = event.target.value;
-        setpass(newpass);
-    
-        
+  const handleClick = () => {
+    if (isAllValid) {
+      navigate("/products");
     }
+  };
 
-    function handleClick() {
-        if(pass.length >=8){
-            navigate('/products')
-        }
-      }
+  const check = () =>{
+    if( pass.length >=8 && isValid){
+      setIsAllValid(true)
+    } else{
+      setIsAllValid(false)
+    }
+  }
 
-    return(
-        <>
-        <div>
-            <h1>Login</h1>
-           
-                 insira seu email <input type="email" name="email" id="email" onChange={({target: value}) => setemail(value)} />
-                 <br />
-                insira sua senha <input type="password" name="senha" id="senha" onChange={handlechange} />
-                <br />
-                <button id="enviar" onClick={handleClick} >enviar</button>
-            
-            
-        </div>
-        </>
-    )
-}
+  return (
+    <>
+      <div>
+        <h1>Login</h1>
+        Insira seu e-mail:
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <br />
+        Insira sua senha:
+        <input
+          type="password"
+          name="senha"
+          id="senha"
+          onChange={handlePassChange}
+        />
+        <br />
+        {isAllValid ? (
+          <>
+            <p style={{ color: "green" }}>E-mail ou senha válido(s)!</p>
+            <button id="enviar" onClick={handleClick}>
+              Enviar
+            </button>
+          </>
+        ) : (
+          <>
+            <p style={{ color: "red" }}>E-mail  ou senha inválido(s)!</p>
+            <button id="desativado" onClick={handleClick}>
+              Enviar
+            </button>
+          </>
+        )}
+      </div>
+    </>
+  );
+};
 
-export default Login
+export default Login;

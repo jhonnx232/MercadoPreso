@@ -4,30 +4,30 @@ import { useEffect, useState } from "react";
 function ProductDetails() {
   const location = useLocation();
   let id = location.state ;
-  const [produtos, setprodutos] = useState([]);
+  const [Produto, setProduto] = useState([]);
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`).then((response) => {
       response.json().then((data) => {
-        setprodutos(data);
+        setProduto(data);
       });
     });
   }, [id]);
 
   const render = () => {
-    if (produtos.length === 0) {
+    if (Produto.length === 0) {
       return <p>Carregando...</p>;
     } else {
       return (
         <div>
-          <h2>{produtos.title}</h2>
-          <p>{produtos.description}</p>
-          <img src={produtos.image} alt={produtos.title} />
+          <h2>{Produto.title}</h2>
+          <p>{Produto.description}</p>
+          <img src={Produto.image} alt={Produto.title} />
           <p>
-            Classificação: {produtos.rating.rate} ({produtos.rating.count}{" "}
+            Classificação: {Produto.rating.rate} ({Produto.rating.count}{" "}
             avaliações)
           </p>
-          <p>Categoria: {produtos.category}</p>
-          <p>Preço: ${produtos.price}</p>
+          <p>Categoria: {Produto.category}</p>
+          <p>Preço: ${Produto.price}</p>
         </div>
       );
     }

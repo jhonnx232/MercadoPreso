@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import fetchProducts from "../../api/fetchProducts";
 import ProductCard from "../../components/productCard";
-import FilterBar from "../../components/filterBar";
 import Cart from "../../components/cart";
+import Header from "../../components/header";
 import "./Products.css";
-
 
 function Products() {
   const [produtos, setprodutos] = useState([]);
@@ -12,7 +11,7 @@ function Products() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
-
+  
   useEffect(() => {
     fetchProducts().then((response) => {
       setprodutos(response);
@@ -33,7 +32,7 @@ function Products() {
       );
       setCartItems(updatedItems);
     } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+      setCartItems([...cartItems, { ...product, quantity: 1 }])
     }
   };
 
@@ -43,12 +42,8 @@ function Products() {
 
   return (
     <>
-      <h1>Produtos</h1>
-      <button className="cart-button" onClick={handleShowCart}>
-        Carrinho ({cartItems.length})
-      </button>
+      <Header handleShowCart={handleShowCart} cartItemCount={cartItems.length} handleCategoryClick={handleCategoryClick} />
       {showCart && <Cart cartItems={cartItems} />}
-      <FilterBar categories={["electronics", "jewelery", "men's clothing", "women's clothing"]} handleClick={handleCategoryClick} />
       {isLoading ? (
         <h2>Carregando...</h2>
       ) : (
