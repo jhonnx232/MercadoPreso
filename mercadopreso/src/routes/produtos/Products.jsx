@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import fetchProducts from "../../api/fetchProducts";
-import ProductCard from "../../components/ProductCardroductCard";
+import ProductCard from "../../components/ProductCard";
 import Cart from "../../components/Cart";
 import Header from "../../components/Header";
 import "./Products.css";
@@ -11,7 +11,7 @@ function Products() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
-  
+
   useEffect(() => {
     fetchProducts().then((response) => {
       setprodutos(response);
@@ -32,7 +32,7 @@ function Products() {
       );
       setCartItems(updatedItems);
     } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }])
+      setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
   };
 
@@ -42,15 +42,30 @@ function Products() {
 
   return (
     <>
-      <Header handleShowCart={handleShowCart} cartItemCount={cartItems.length} handleCategoryClick={handleCategoryClick} />
+      <Header
+        handleShowCart={handleShowCart}
+        cartItemCount={cartItems.length}
+        handleCategoryClick={handleCategoryClick}
+      />
       {showCart && <Cart cartItems={cartItems} />}
       {isLoading ? (
         <h2>Carregando...</h2>
       ) : (
         <section className="products">
-          {produtos.filter((produto) => produto.category === selectedCategory || selectedCategory === "").map((produto) => {
-            return <ProductCard key={produto.id} data={produto} handleAddToCart={handleAddToCart} />;
-          })}
+          {produtos
+            .filter(
+              (produto) =>
+                produto.category === selectedCategory || selectedCategory === ""
+            )
+            .map((produto) => {
+              return (
+                <ProductCard
+                  key={produto.id}
+                  data={produto}
+                  handleAddToCart={handleAddToCart}
+                />
+              );
+            })}
         </section>
       )}
     </>
