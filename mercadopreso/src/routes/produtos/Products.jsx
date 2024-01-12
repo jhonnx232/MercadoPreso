@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import fetchProducts from "../../api/fetchProducts";
-import ProductCard from "../../components/productCard";
-import Cart from "../../components/cart";
-import Header from "../../components/header";
+import ProductCard from "../../components/ProductCardroductCard";
+import Cart from "../../components/Cart";
+import Header from "../../components/Header";
 import "./Products.css";
 
 function Products() {
