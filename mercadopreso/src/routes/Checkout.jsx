@@ -1,12 +1,9 @@
-import { useLocation } from "react-router-dom";
-
-
+import { useNavigate } from "react-router-dom";
 
 function Checkout (){
-  const location= useLocation( )
-  const cartItems = location.state.cartItems
+  const cartItems = JSON.parse(localStorage.getItem('carrinhoDeCompras'));
   console.log(cartItems);
-  
+  const navigate = useNavigate()
 
   const items = cartItems.map((item) => (
     <div key={item.name} className="itens">
@@ -25,6 +22,9 @@ function Checkout (){
 
 return (
   <div className="carrinhoCheck">
+    <button onClick={()=>{
+      navigate(-1)
+    }}>voltar</button>
     {items}
     <p>Preço total do carrinho : R${totalPrice}</p>
   </div>

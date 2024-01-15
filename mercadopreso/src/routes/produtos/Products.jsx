@@ -11,14 +11,13 @@ function Products() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
-
   useEffect(() => {
     fetchProducts().then((response) => {
       setprodutos(response);
       setIsLoading(false);
+      setCartItems(JSON.parse(localStorage.getItem('carrinhoDeCompras')))
     });
   }, []);
-
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
@@ -39,8 +38,9 @@ function Products() {
   const handleShowCart = () => {
     setShowCart(!showCart);
   };
-  const cartItemsCopia = cartItems;
 
+  localStorage.setItem('carrinhoDeCompras', JSON.stringify(cartItems));
+  
   return (
     <>
       <Header
@@ -48,8 +48,7 @@ function Products() {
         cartItemCount={cartItems.length}
         handleCategoryClick={handleCategoryClick}
       />
-      {showCart && <Cart cartItems={cartItems}
-     />}
+      {showCart && <Cart/>}
       {isLoading ? (
         <h2>Carregando...</h2>
       ) : (
