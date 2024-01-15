@@ -39,6 +39,7 @@ function Products() {
   const handleShowCart = () => {
     setShowCart(!showCart);
   };
+  const cartItemsCopia = cartItems;
 
   return (
     <>
@@ -47,7 +48,8 @@ function Products() {
         cartItemCount={cartItems.length}
         handleCategoryClick={handleCategoryClick}
       />
-      {showCart && <Cart cartItems={cartItems} />}
+      {showCart && <Cart cartItems={cartItems}
+     />}
       {isLoading ? (
         <h2>Carregando...</h2>
       ) : (

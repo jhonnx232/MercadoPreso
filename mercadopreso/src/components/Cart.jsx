@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Cart({ cartItems, handleRemoveFromCart }) {
+function Cart({ cartItems, handleRemoveFromCart  }) {
   const calculateTotalPrice = () => {
     const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     return Number(totalPrice.toFixed(2));
   };
-
+    console.log(cartItems);
   return (
     <div className="cart">
       <h2>Carrinho</h2>
@@ -26,7 +26,7 @@ function Cart({ cartItems, handleRemoveFromCart }) {
         ))}
       </ul>
       <p>Preço total do carrinho: ${calculateTotalPrice()}</p>
-      <Link to={{ pathname: "/checkout", state: { cartItems: cartItems || [] } }}>
+      <Link to={'/checkout'} state={{cartItems}}>
         <button>Finalizar Compra</button>
       </Link>
     </div>
